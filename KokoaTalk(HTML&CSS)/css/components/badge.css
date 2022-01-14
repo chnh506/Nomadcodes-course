@@ -11,3 +11,12 @@
   height: 24px;
   border-radius: 12px;
 }
+
+.dot {
+  background-color: #ff612a;
+
+  display: flex;
+  width: 5px;
+  height: 5px;
+  border-radius: 2.5px;
+}

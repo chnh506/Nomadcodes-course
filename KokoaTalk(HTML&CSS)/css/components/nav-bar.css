@@ -25,13 +25,6 @@
 }
 
 .nav__dot {
-  background-color: #ff612a;
-
-  display: flex;
-  width: 5px;
-  height: 5px;
-  border-radius: 2.5px;
-
   position: absolute;
   left: 32px;
 }

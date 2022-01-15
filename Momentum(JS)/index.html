@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/login.js" defer></script>
     <script src="js/clock.js" defer></script>
+    <script src="js/quote.js" defer></script>
+    <script src="js/background.js" defer></script>
     <title>Momentum App</title>
   </head>
   <body>
     <h2 id="clock">00:00:00</h2>
+    <div class="background-image"></div>
     <form id="login-form" class="hidden">
       <input
         type="text"
@@ -21,5 +24,9 @@
       <button>Log In</button>
     </form>
     <h1 id="greeting" class="hidden"></h1>
+    <div id="quote">
+      <span class="quote__quote"></span>
+      <span class="quote__author"></span>
+    </div>
   </body>
 </html>

@@ -1,0 +1,161 @@
+#chat-screen {
+  background-color: #abc1d1;
+  height: 12345vh;
+}
+
+#chat-screen .status-bar,
+#chat-screen .alt-header {
+  top: 0;
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+
+  background-color: #abc1d1;
+}
+
+#chat-screen .status-bar {
+  z-index: 2;
+}
+
+#chat-screen .alt-header {
+  z-index: 1;
+}
+
+.main-chat {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat__timestamp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+
+  color: white;
+  background-color: #92a4b3;
+  font-size: 12px;
+}
+
+.message-row {
+  width: 100%;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.message-row img {
+  width: 50px;
+  height: 50px;
+  border-radius: 18px;
+  margin-right: 10px;
+}
+
+.message__author {
+  color: var(--gray-text);
+  font-size: 14px;
+
+  display: block;
+  margin-bottom: 7px;
+}
+
+.message__info {
+  display: flex;
+  align-items: flex-end;
+}
+
+.message__bubble {
+  background-color: white;
+  padding: 12px;
+  border-radius: 12px;
+  border-top-left-radius: 0;
+  margin-right: 5px;
+}
+
+.message__time {
+  color: var(--gray-text);
+  font-size: 7px;
+}
+
+.message-row--own {
+  justify-content: flex-end;
+}
+
+.message-row--own .message__info {
+  flex-direction: row-reverse;
+}
+
+.message-row--own .message__bubble {
+  background-color: var(--yellow);
+  border-top-right-radius: 0;
+  border-top-left-radius: 12px;
+
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.reply {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: white;
+  padding: 5px 20px;
+}
+
+.reply i {
+  font-size: 20px;
+  color: var(--gray-text);
+}
+
+.reply__column {
+  display: flex;
+  align-items: center;
+}
+
+.reply .reply__column:first-child {
+  width: 5%;
+  margin-right: 20px;
+}
+
+.reply .reply__column:last-child {
+  width: 95%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding-left: 10px;
+  padding-right: 0;
+}
+
+.reply input {
+  height: 30px;
+  width: 100%;
+  border: none;
+}
+
+.reply button {
+  border: none;
+  background-color: var(--yellow);
+
+  display: block;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  padding: 0px 8px;
+}
+
+.reply .fa-smile {
+  margin: 0px 15px;
+}
+
+.reply .fa-arrow-up {
+  color: black;
+}

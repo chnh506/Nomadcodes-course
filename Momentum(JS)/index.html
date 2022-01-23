@@ -9,6 +9,7 @@
     <script src="js/clock.js" defer></script>
     <script src="js/quote.js" defer></script>
     <script src="js/background.js" defer></script>
+    <script src="js/todo.js" defer></script>
     <title>Momentum App</title>
   </head>
   <body>
@@ -24,6 +25,11 @@
       <button>Log In</button>
     </form>
     <h1 id="greeting" class="hidden"></h1>
+    <form id="todo-form">
+      <input type="text" placeholder="Upload your To Do List" required />
+      <button>Add</button>
+    </form>
+    <ul id="todo-list"></ul>
     <div id="quote">
       <span class="quote__quote"></span>
       <span class="quote__author"></span>

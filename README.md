@@ -8,10 +8,10 @@
 
 • 단지 강의를 듣는 것만으로는 발전에 한계가 있다는 것을 명심한다.
 
----------------------------------------------------------------------------
+---
 
-KokoaTalk(HTML&CSS) - 코코아톡 클론코딩
-Momentum(JS) - 바닐라 JS로 크롬 앱 만들기
+KokoaTalk(HTML&CSS) - 코코아톡 클론코딩  
+Momentum(JS) - 바닐라 JS로 크롬 앱 만들기  
 react-for-beginners - ReactJS로 영화 웹 서비스 만들기
 
 (https://nomadcoders.co) 노마드코더 강의 사이트 참고

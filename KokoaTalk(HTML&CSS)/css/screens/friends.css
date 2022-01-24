@@ -34,3 +34,35 @@
 
   color: rgba(0, 0, 0, 0.4);
 }
+
+/* splash screen (01.png) */
+
+@keyframes hideSplashScreen {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#splash-screen {
+  background-color: var(--yellow);
+  position: absolute;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  animation: hideSplashScreen 0.3s ease-in-out forwards;
+  animation-delay: 2s;
+}
+
+#splash-screen i {
+  font-size: 100px;
+  color: #3c1d1e;
+}

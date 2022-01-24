@@ -133,6 +133,8 @@
   border-radius: 15px;
   padding-left: 10px;
   padding-right: 0;
+
+  transition: all 0.3s ease-in-out;
 }
 
 .reply input {
@@ -158,4 +160,18 @@
 
 .reply .fa-arrow-up {
   color: black;
+}
+
+.reply:focus-within .reply__column:first-child,
+.reply:focus-within .fa-smile,
+.reply:focus-within button {
+  opacity: 0;
+}
+
+.reply:focus-within input {
+  width: 100vw;
+}
+
+.reply:focus-within .reply__column:last-child {
+  transform: translateX(-10%);
 }

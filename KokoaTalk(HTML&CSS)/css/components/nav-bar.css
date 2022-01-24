@@ -18,10 +18,27 @@
   color: #2f363e;
 }
 
+@keyframes notificationAnimation {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: none;
+  }
+}
+
 .nav__notification {
   position: absolute;
   left: 18px;
   bottom: 15px;
+}
+
+.nav__btn:hover .nav__notification {
+  will-change: transform;
+  animation: notificationAnimation 0.5s ease-in-out infinite;
 }
 
 .nav__dot {

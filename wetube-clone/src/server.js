@@ -6,8 +6,13 @@ import videoRouter from "./routers/videoRouter";
 
 const PORT = 4000;
 
-const app = express();   
+const app = express(); 
 // express function을 사용하면, express application을 생성한다.
+
+app.set("view engine", "pug"); 
+// express application의 view engine을 pug로 설정한다.  
+app.set("views",  process.cwd() + "/src/views");
+// view 추가설정
 
 const logger = morgan("dev");
 app.use(logger);

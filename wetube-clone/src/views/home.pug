@@ -1,0 +1,11 @@
+extends base.pug
+include mixins/video.pug
+
+
+block content 
+  h2 Welcome! 
+  h3 recommended videos :
+  each item in videos 
+    +video(item)
+  else 
+    span Sorry nothing found.

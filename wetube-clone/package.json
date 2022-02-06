@@ -1,0 +1,21 @@
+{
+  "name": "wetube-clone",
+  "version": "1.0.0",
+  "description": "Wetube clone built using NodeJS, Express, MongoDB and ES6",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  },
+  "author": "Heo Chan<heochan01@korea.ac.kr>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.15"
+  }
+}

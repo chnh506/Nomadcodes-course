@@ -1,0 +1,16 @@
+# Wetube clone (NodeJS, Express, MongoDB and ES6)
+
+/ -> Home  
+/join -> Join  
+/login -> Login  
+/search -> Search
+
+/users/:id -> See User  
+/users/logout -> Log Out  
+/users/edit -> Edit MY Profile  
+/users/remove -> Remove MY Profile
+
+/videos/:id -> See Video  
+/videos/:id/edit -> Edit Video  
+/videos/:id/remove -> Remove Video  
+/videos/upload -> Upload Video

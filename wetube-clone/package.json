@@ -8,7 +8,8 @@
   "author": "Heo Chan<heochan01@korea.ac.kr>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",

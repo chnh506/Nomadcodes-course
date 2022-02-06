@@ -1,4 +1,4 @@
-# Wetube Reloaded
+# Wetube clone (NodeJS, Express, MongoDB and ES6)
 
 / -> Home  
 /join -> Join  

@@ -1,0 +1,32 @@
+.icon-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon-row__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-row__icon i {
+  font-size: 28px;
+}
+
+.icon-row__icon span {
+  margin-top: 15px;
+}
+
+.icon-row__hidden {
+  opacity: 0;
+}
+
+.icon-row__icon--unread {
+  position: relative;
+}
+
+.icon-row__icon--unread .dot {
+  position: absolute;
+  right: 5px;
+  top: -7px;
+}

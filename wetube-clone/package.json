@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Wetube clone built using NodeJS, Express, MongoDB and ES6",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "Heo Chan<heochan01@korea.ac.kr>",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.2",
+    "mongoose": "^6.2.1",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },

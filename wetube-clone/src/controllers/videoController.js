@@ -1,39 +1,36 @@
- export const rootVideos = (req, res) => {
-  const videos = [
-    {
-      title: "First Video",
-      rating: 5,
-      comments: 2,
-      createdAt: "2 minutes ago",
-      views: 59,
-      id: 1,
-    },
-    {
-      title: "Second Video",
-      rating: 5,
-      comments: 2,
-      createdAt: "2 minutes ago",
-      views: 59,
-      id: 1,
-    },
-    {
-      title: "Third Video",
-      rating: 5,
-      comments: 2,
-      createdAt: "2 minutes ago",
-      views: 59,
-      id: 1,
-    },
-  ];
-  return res.render("home", { pageTitle: "Home", videos })
+import Video from "../models/Video";
+
+
+export const home = async (req, res) => {
+  const videos = await Video.find({});
+  return res.render("home", { pageTitle: "Home", videos });
 }
 
 export const search = (req, res) => res.send("Search Video");
 
-export const upload = (req, res) => res.send("Upload Video");
+export const getUpload = (req, res) => {
+  res.render("upload", { pageTitle: "Upload Video" });
+}
 
-export const see = (req, res) => res.render("watch");
+export const postUpload = (req, res) => {
+  const { title } = req.body;
+  res.redirect("/");
+}
 
-export const edit = (req, res) => res.render("edit");
+export const watch = (req, res) => {
+  const { id } = req.params;
+  return res.render("watch", { pageTitle: `Watching`});
+}
+
+export const getEdit = (req, res) => {
+  const { id } = req.params;
+  return res.render("edit", { pageTitle: `Editing`});
+}
+
+export const postEdit = (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+  return res.redirect(`/videos/${id}`); 
+}
 
 export const remove = (req, res) => res.send("Remove Video");

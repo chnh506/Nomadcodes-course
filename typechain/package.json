@@ -1,0 +1,19 @@
+{
+  "name": "typechain",
+  "version": "1.0.0",
+  "description": "Learning Typescript by making a Blockchain with it",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsc-watch --onSuccess \"node dist/index.js\""
+  },
+  "author": "Heo Chan",
+  "license": "ISC",
+  "devDependencies": {
+    "tsc-watch": "^4.6.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@types/crypto-js": "^4.1.0",
+    "crypto-js": "^4.1.1"
+  }
+}

@@ -3,5 +3,10 @@ extends base.pug
 
 block content 
   form(method="POST")
-    input(name="title" type="text" placeholder="Video Title" value=video.title required)
-    input(type="submit", value="Save") 
+    label(for="title") Title
+    input(id="title" name="title" type="text" placeholder="Title" required value=video.title)
+    label(for="description") Description 
+    input(id="description" name="description" type="text" placeholder="Description" required value=video.description)
+    label(for="hashtags") Hashtags  
+    input(id="hashtags" name="hashtags" type="text" placeholder="Hashtags (separated by comma)" required value=video.hashtags.join(', '))
+    input(type="submit" value="Edit Video") 

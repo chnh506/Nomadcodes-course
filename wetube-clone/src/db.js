@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.connect("mongodb://127.0.0.1:27017/wetube-clone");
+mongoose.connect(process.env.DB_URL);
 // mongoDB를 연결해 준다. (url 주소 : mongodb://127.0.0.1:27017/#{db 이름})
 
 const db = mongoose.connection;

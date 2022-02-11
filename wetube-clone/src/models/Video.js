@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const videoSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true },
   description: { type: String, required: true, trim: true },
@@ -23,5 +24,6 @@ videoSchema.static('formatHashtags', function(hashtags) {
 
 const Video = mongoose.model("Video", videoSchema);
 // 위에 만들어 둔 스키마를 가지고 model을 만든다. (모델 이름, 스키마) 전달해 주기.
+
 
 export default Video;

@@ -1,6 +1,9 @@
+import "dotenv/config";
+// dotenv는 내 프로젝트에서 가장 앞에 import해 줘야 한다.
 import "./db";        
 // 파일 자체를 import해 준다. 이 파일을 임포트해 줌으로써, 내 서버가 mongo에 연결된다.
 import "./models/Video";
+import "./models/User";
 import app from "./server";
 
 const PORT = 4000;

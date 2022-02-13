@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Video from "../models/Video";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 
@@ -15,7 +16,8 @@ export const postJoin = async (req, res) => {
       errorMessage: "비밀번호가 서로 다릅니다. 다시 시도해 주세요.",
     });
   }
-  const exists = User.exists({ $or: [{ username }, { email }] });
+  const exists = await User.exists({ $or: [{ username }, { email }] });
+  console.log(exists);
   if (exists) {
     return res.status(400).render("join", { 
       pageTitle,
@@ -154,10 +156,96 @@ export const logout = (req, res) => {
   return res.redirect("/");
 }
 
-export const see = (req, res) => {
-  return res.send(`See User #${req.params.id}`);
+export const see =  async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos"); 
+
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found" });
+  }
+  return res.render("users/profile", { pageTitle: `${user.name}의 Profile` , user });
 } 
 
-export const edit = (req, res) => res.send("Edit User");
+export const getEdit = (req, res) => {
+  return res.render("users/edit-profile", { pageTitle: "Edit Profile" });
+}
 
+export const postEdit = async (req, res) => {
+  const pageTitle = "Edit Profile";
+  const { 
+    session: { user: { _id, avatarUrl } },
+    body: { name, email, username, location },
+    file,
+  } = req;
+
+  const usernameExists = await User.findOne({ username });
+  const emailExists = await User.findOne({ email });
+  if (usernameExists !== null && usernameExists._id.toString() !== _id) {
+    return res.status(400).render("users/edit-profile", { 
+      pageTitle,
+      errorMessage: "해당 username은 이미 존재합니다.",
+    });
+  }
+  if (emailExists !== null && emailExists._id.toString() !== _id) {
+    return res.status(400).render("users/edit-profile", { 
+      pageTitle,
+      errorMessage: "해당 email은 이미 존재합니다.",
+    });
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(_id, {
+    name,
+    email,
+    username,
+    location,
+    avatarUrl: file ? file.path : avatarUrl, 
+  },
+  { new: true });
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit");
+}
+
+export const getChangePassword = (req, res) => {
+  if (req.session.user.githubOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+}
+
+export const postChangePassword = async (req, res) => {
+  const pageTitle = "Change Password"; 
+  const { 
+    session: { user: { _id } },
+    body: { oldPassword, newPassword, newPassword2 },
+  } = req;
+
+  const user = await User.findById(_id);
+  const prevPasswordMatches = await bcrypt.compare(oldPassword, user.password);
+  if (!prevPasswordMatches) {
+    return res.status(400).render("users/change-password", {
+      pageTitle,
+      errorMessage: "기존 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.",
+    });
+  }
+  if (oldPassword === newPassword) {
+    return res.status(400).render("users/change-password", {
+      pageTitle,
+      errorMessage: "기존 비밀번호와 동일한 비밀번호입니다.",
+    });
+  }
+  if (newPassword !== newPassword2) {
+    return res.status(400).render("users/change-password", { 
+      pageTitle,
+      errorMessage: "새로운 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.",
+    });
+  }
+  
+  user.password = newPassword;
+  await user.save();
+  // 'save' 함수이므로 스키마에 정의해 놓은 비밀번호를 hashing하는 함수가 실행된다.
+  
+  // send notification ('비밀번호 변경이 완료되었습니다.') 기능 추가하기
+  req.session.destroy();
+  return res.redirect('/login');
+}
 

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 
 const videoSchema = new mongoose.Schema({
+  fileUrl: { type: String, required: true },
   title: { type: String, required: true, trim: true },
   description: { type: String, required: true, trim: true },
   createdAt: { type: Date, required: true, default: Date.now },
@@ -11,6 +12,7 @@ const videoSchema = new mongoose.Schema({
     views: { type: Number, default: 0 },
     rating: { type: Number, default: 0 },
   },
+  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
 });
 // 먼저, 데이터의 형식(스키마)을 정의한다. 
 

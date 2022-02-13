@@ -40,6 +40,9 @@ app.use(localsMiddleware);
 // View Engine(이 프로젝트에서는 pug에 해당)에 전역 변수를 전달하기 위한 미들웨어.
 // 세션 미들웨어 뒤에 있어야 세션 Object를 활용할 수 있다. 순서 중요!
 
+app.use("/uploads", express.static("uploads"));
+// 만약 누군가가 /uploads 경로로 가려고 하면, uploads 폴더의 내용을 보여주라고 브라우저에게 알려주는 것!
+
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);

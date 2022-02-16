@@ -41,7 +41,9 @@ app.use(localsMiddleware);
 // 세션 미들웨어 뒤에 있어야 세션 Object를 활용할 수 있다. 순서 중요!
 
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("assets"));
 // 만약 누군가가 /uploads 경로로 가려고 하면, uploads 폴더의 내용을 보여주라고 브라우저에게 알려주는 것!
+// 서버는 uploads, assets 폴더를 공개한다!
 
 app.use("/", rootRouter);
 app.use("/users", userRouter);

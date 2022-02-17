@@ -3,10 +3,13 @@ include mixins/video.pug
 
 
 block content 
-  form(method="get")
-    label(for="search") Search Video 
-    input(id="search" name="keyword" type="text" placeholder="Search by Title")  
-    input(type="submit" value="Search")
+  form(method="GET").search__form
+    input(placeholder="Search by title", name="keyword", type="text")
+    button
+      i.fas.fa-search
 
-  each video in videos 
-    +video(video)
+  div.video-grid
+    each video in videos 
+      +video(video)
+    else
+      span.empty__message No videos found

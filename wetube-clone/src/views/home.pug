@@ -3,9 +3,8 @@ include mixins/video.pug
 
 
 block content 
-  h2 Welcome! 
-  h3 List of Videos :
-  each item in videos 
-    +video(item)
-  else 
-    span Sorry nothing found.
+  div.video-grid
+    each video in videos
+      +video(video)
+    else
+      span.empty__message No videos found

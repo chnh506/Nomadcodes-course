@@ -56,7 +56,6 @@ export const postUpload = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner");
-  console.log(video);
 
   if (video === null) {
     return res.status(404).render("404", { pageTitle: "404 Not Found" });

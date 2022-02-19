@@ -10,7 +10,6 @@ const videoSchema = new mongoose.Schema({
   hashtags: [{ type: String, trim: true }],
   metaData: {
     views: { type: Number, default: 0 },
-    rating: { type: Number, default: 0 },
   },
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
 });

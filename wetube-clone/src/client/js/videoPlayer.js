@@ -38,6 +38,11 @@ const handeSpacebarPressed = (event) => {
 };
 
 const handleVideoEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  }); 
+  
   playBtnIcon.classList = "fas fa-play";
 };
 

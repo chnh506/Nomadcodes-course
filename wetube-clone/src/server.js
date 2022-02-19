@@ -6,6 +6,7 @@ import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import { localsMiddleware } from "./middlewares";
+import apiRouter from "./routers/apiRouter";
 
 
 const app = express(); 
@@ -49,6 +50,8 @@ app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 // 누군가가 "/videos"로 시작하는 url에 접근하면, Express는 videoRouter에 있는 컨트롤러에 접근한다.
+app.use("/api", apiRouter);
+// api는 백엔드가 템플릿을 렌더링하지 않을 때 front-end와 back-end가 통신하는 방법을 말한다. 
 
 
 export default app;

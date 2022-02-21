@@ -1,14 +1,17 @@
 extends base.pug
 
 block content
-  div 
-    video#preview
-    button#recordBtn Start Recording
+  div.video-record__container
+    div.video-record__video
+      video#preview
+      button#recordBtn.social__btn Start Recording
   if errorMessage 
     span=errorMessage
   form(method="POST" enctype="multipart/form-data")
     label(for="video") Video File 
     input(id="video" name="video" type="file" accept="video/*" required)
+    label(for="thumbnail") Thumbnail File 
+    input(id="thumbnail" name="thumbnail" type="file" accept="image/*" required)
     label(for="title") Title
     input(id="title" name="title" type="text" placeholder="Title" required)
     label(for="description") Description 

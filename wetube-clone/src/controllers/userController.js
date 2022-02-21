@@ -15,8 +15,8 @@ export const postJoin = async (req, res) => {
       errorMessage: "비밀번호가 서로 다릅니다. 다시 시도해 주세요.",
     });
   }
+
   const exists = await User.exists({ $or: [{ username }, { email }] });
-  console.log(exists);
   if (exists) {
     return res.status(400).render("join", { 
       pageTitle,

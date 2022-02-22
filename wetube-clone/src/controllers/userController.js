@@ -10,17 +10,17 @@ export const postJoin = async (req, res) => {
   const pageTitle = "Join";
   const { name, email, username, password, password2, location } = req.body;
   if (password !== password2) {
+    req.flash("error", "비밀번호가 서로 다릅니다. 다시 시도해 주세요");
     return res.status(400).render("join", { 
       pageTitle: "Join", 
-      errorMessage: "비밀번호가 서로 다릅니다. 다시 시도해 주세요.",
     });
   }
 
   const exists = await User.exists({ $or: [{ username }, { email }] });
   if (exists) {
+    req.flash("error", "username 혹은 email이 이미 존재합니다");
     return res.status(400).render("join", { 
       pageTitle,
-      errorMessage: "username 혹은 email이 이미 존재합니다.",
     });
   }
   try {
@@ -31,11 +31,12 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
+    req.flash("info", "회원가입이 완료되었습니다");
     return res.redirect("/login");
   } catch(error) {
+    req.flash("error", error._message);
     return res.status(400).render("join", {
       pageTitle,
-      errorMessage: error._message,
     });
   }
 };
@@ -47,22 +48,23 @@ export const postLogin = async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username, githubOnly: false });
   if (!user) {
+    req.flash("error", "해당 Username은 존재하지 않습니다");
     return res.status(400).render("login", {
       pageTitle,
-      errorMessage: "해당 Username은 존재하지 않습니다.",
     });
   }
 
   const pwMatches = await bcrypt.compare(password, user.password);
   if (!pwMatches) {
+    req.flash("error", "비밀번호가 틀립니다. 다시 입력해 주세요");
     return res.status(400).render("login", {
       pageTitle,
-      errorMessage: "비밀번호가 틀립니다. 다시 입력해 주세요.",
     });
   }
 
   req.session.loggedIn = true;
   req.session.user = user;
+  req.flash("success", "로그인 되었습니다");
   return res.redirect("/") ;
 }
 
@@ -151,7 +153,8 @@ export const finishGithubLogin = async (req, res) => {
 }
 
 export const logout = (req, res) => {
-  req.session.destroy();
+  req.session.loggedIn = false;
+  req.flash("info", "로그아웃 되었습니다");
   return res.redirect("/");
 }
 
@@ -207,11 +210,14 @@ export const postEdit = async (req, res) => {
   },
   { new: true });
   req.session.user = updatedUser;
+
+  req.flash("success", "회원정보가 수정되었습니다");
   return res.redirect("/users/edit");
 }
 
 export const getChangePassword = (req, res) => {
   if (req.session.user.githubOnly === true) {
+    req.flash("error", "비밀번호를 변경할 수 없습니다");
     return res.redirect("/");
   }
   return res.render("users/change-password", { pageTitle: "Change Password" });
@@ -227,21 +233,21 @@ export const postChangePassword = async (req, res) => {
   const user = await User.findById(_id);
   const prevPasswordMatches = await bcrypt.compare(oldPassword, user.password);
   if (!prevPasswordMatches) {
+    req.flash("error", "기존 비밀번호가 일치하지 않습니다. 다시 입력해 주세요");
     return res.status(400).render("users/change-password", {
       pageTitle,
-      errorMessage: "기존 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.",
     });
   }
   if (oldPassword === newPassword) {
+    req.flash("error", "기존 비밀번호와 동일한 비밀번호입니다");
     return res.status(400).render("users/change-password", {
       pageTitle,
-      errorMessage: "기존 비밀번호와 동일한 비밀번호입니다.",
     });
   }
   if (newPassword !== newPassword2) {
+    req.flash("error", "새로운 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
     return res.status(400).render("users/change-password", { 
       pageTitle,
-      errorMessage: "새로운 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.",
     });
   }
   
@@ -250,7 +256,8 @@ export const postChangePassword = async (req, res) => {
   // 'save' 함수이므로 스키마에 정의해 놓은 비밀번호를 hashing하는 함수가 실행된다.
   
   // send notification ('비밀번호 변경이 완료되었습니다.') 기능 추가하기
-  req.session.destroy();
+  req.flash("success", "비밀번호 변경이 완료되었습니다");
+  req.session.loggedIn = false;
   return res.redirect('/login');
 }
 

@@ -44,12 +44,13 @@ export const postUpload = async (req, res) => {
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     await user.save();
+
+    req.flash("success", "동영상 업로드가 완료되었습니다");
     return res.redirect("/");
   } catch(error) {
-    console.log(error);
+    req.flash("error", error._message);
     return res.status(400).render("upload", { 
       pageTitle: "Upload Video", 
-      errorMessage: error._message, 
     });
   }
 }
@@ -75,6 +76,7 @@ export const getEdit = async (req, res) => {
     return res.status(404).render("404", { pageTitle: "404 Not Found" });
   }
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "동영상 게시자만 편집할 수 있습니다");
     return res.status(403).redirect("/");
   }
   return res.render("edit", { pageTitle: `Edit <${video.title}>`, video });
@@ -93,6 +95,7 @@ export const postEdit = async (req, res) => {
   }
 
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "동영상 게시자만 편집할 수 있습니다");
     return res.status(403).redirect("/");
   }
 
@@ -101,6 +104,8 @@ export const postEdit = async (req, res) => {
     description,
     hashtags: Video.formatHashtags(hashtags),
   });
+
+  req.flash("success", "동영상 정보를 수정하였습니다");
   return res.redirect(`/videos/${id}`); 
 }
 
@@ -117,12 +122,15 @@ export const deleteVideo = async (req, res) => {
   }
 
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "동영상 게시자만 삭제할 수 있습니다");
     return res.status(403).redirect("/");
   }
 
   await Video.findByIdAndDelete(id);
   user.videos.splice(user.videos.indexOf(id), 1);
   await user.save();
+
+  req.flash("success", "동영상이 삭제되었습니다");
   return res.redirect("/");
 }
 

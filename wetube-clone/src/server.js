@@ -1,6 +1,7 @@
 import express from "express"; 
 import morgan  from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
@@ -36,6 +37,9 @@ app.use(session({
 // session 미들웨어(from express-session)은 router들 앞에 추가해줘야 한다.
 // secret은 말 그대로 아무도 모르는 문자열로 설정해줘야 한다. 나머지는 deprecated에 대한 처리.
 // 이 미들웨어가 있으면 express가 알아서 그 브라우저를 위한 세션ID를 만들고 브라우저한테 보낸다.
+
+app.use(flash());
+// express-flash를 사용한다.
 
 app.use(localsMiddleware);
 // View Engine(이 프로젝트에서는 pug에 해당)에 전역 변수를 전달하기 위한 미들웨어.

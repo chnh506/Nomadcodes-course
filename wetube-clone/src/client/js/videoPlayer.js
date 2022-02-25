@@ -32,7 +32,7 @@ const handlePlay = (event) => {
 };
 
 const handeSpacebarPressed = (event) => {
-  if (event.keyCode === 32) {
+  if (event.keyCode === 32 && event.target.id !== "textarea") {
     handlePlay();
   }
 };

@@ -26,6 +26,10 @@ app.use(express.urlencoded({ extended: true }));
 // express application이 form의 value를 이해할 수 있도록 하고, 
 // 우리가 쓸 수 있는 자바스크립트 형식으로 변환시켜 준다.
 
+app.use(express.json());
+// string을 받아서 json으로 바꿔주는 미들웨어. 
+// express에게 json을 보내고 있다고 알려주는  설정이 추가적으로 필요하다.(front-end에서 진행)
+
 app.use(session({
   secret: process.env.COOKIE_SECRET,
   resave: false,

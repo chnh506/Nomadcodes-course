@@ -4,6 +4,7 @@ import "./db";
 // 파일 자체를 import해 준다. 이 파일을 임포트해 줌으로써, 내 서버가 mongo에 연결된다.
 import "./models/Video";
 import "./models/User";
+import "./models/Comment";
 import app from "./server";
 
 const PORT = 4000;

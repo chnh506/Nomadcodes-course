@@ -12,6 +12,7 @@ const videoSchema = new mongoose.Schema({
   metaData: {
     views: { type: Number, default: 0 },
   },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
 });
 // 먼저, 데이터의 형식(스키마)을 정의한다. 

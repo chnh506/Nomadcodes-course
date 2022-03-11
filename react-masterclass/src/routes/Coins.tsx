@@ -5,6 +5,7 @@ import styled from "styled-components";
 const Container = styled.div`
   padding: 20px;
   max-width: 480px;
+  height: 100vh;
   margin: 0 auto;
 `;
 
@@ -89,7 +90,10 @@ function Coins() {
         <CoinsList>
           {coins.map((coin) => (
             <CoinElem key={coin.id}>
-              <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+              <Link
+                to={`/${coin.id}`}
+                state={{ name: coin.name, symbol: coin.symbol }}
+              >
                 <Img
                   src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                 />

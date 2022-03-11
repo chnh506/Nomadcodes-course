@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  useParams,
+  Link,
+  useMatch,
+} from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
   padding: 20px;
   max-width: 480px;
+  height: 100vh;
   margin: 0 auto;
 `;
 
@@ -24,11 +31,68 @@ const Loader = styled.span`
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
+
+  display: flex;
+  align-items: center;
+`;
+
+const TitleImg = styled.img`
+  width: 48px;
+  height: 48px;
+  margin-right: 15px;
+`;
+
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+`;
+
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
+
+const Description = styled.p`
+  margin: 20px 0px;
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`;
+
+const Tab = styled.div<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    display: block;
+  }
 `;
 
 interface ILocation {
   state: {
     name: string;
+    symbol: string;
   };
 }
 
@@ -93,6 +157,8 @@ function Coin() {
   const [priceData, setPriceData] = useState<IPriceData>();
   const { coinID } = useParams();
   const { state } = useLocation() as ILocation;
+  const priceMatch = useMatch("/:coinID/price");
+  const chartMatch = useMatch("/:coinID/chart");
   useEffect(() => {
     (async () => {
       const infoData = await (
@@ -105,14 +171,60 @@ function Coin() {
       setPriceData(priceData);
       setLoading(false);
     })();
-  }, []);
+  }, [coinID]);
 
   return (
     <Container>
       <Header>
-        <Title>{state?.name || "Loading ..."}</Title>
+        <Title>
+          <TitleImg
+            src={`https://cryptoicon-api.vercel.app/api/icon/${infoData?.symbol.toLowerCase()}`}
+          />
+          {state?.name ? state.name : loading ? "loading..." : infoData?.name}
+        </Title>
       </Header>
-      {loading ? <Loader>loading ...</Loader> : null}
+      {loading ? (
+        <Loader>loading ...</Loader>
+      ) : (
+        <>
+          <Overview>
+            <OverviewItem>
+              <span>Rank:</span>
+              <span>{infoData?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol:</span>
+              <span>${infoData?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Open Source:</span>
+              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+            </OverviewItem>
+          </Overview>
+          <Description>{infoData?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>Total Suply:</span>
+              <span>{priceData?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Supply:</span>
+              <span>{priceData?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+
+          <Tabs>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={"price"}>Price</Link>
+            </Tab>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={"chart"}>Chart</Link>
+            </Tab>
+          </Tabs>
+
+          <Outlet />
+        </>
+      )}
     </Container>
   );
 }

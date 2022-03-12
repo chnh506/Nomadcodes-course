@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { Helmet } from "react-helmet-async";
 import {
   Outlet,
   useLocation,
@@ -7,6 +9,7 @@ import {
   useMatch,
 } from "react-router-dom";
 import styled from "styled-components";
+import { fetchCoinInfo, fetchCoinTickers } from "../api";
 
 const Container = styled.div`
   padding: 20px;
@@ -117,7 +120,7 @@ interface IInfoData {
   last_data_at: string;
 }
 
-interface IPriceData {
+interface ITickersData {
   id: string;
   name: string;
   symbol: string;
@@ -152,13 +155,33 @@ interface IPriceData {
 }
 
 function Coin() {
-  const [loading, setLoading] = useState(true);
-  const [infoData, setInfoData] = useState<IInfoData>();
-  const [priceData, setPriceData] = useState<IPriceData>();
   const { coinID } = useParams();
   const { state } = useLocation() as ILocation;
   const priceMatch = useMatch("/:coinID/price");
   const chartMatch = useMatch("/:coinID/chart");
+
+  // react-query 사용 이후
+  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(
+    ["info", coinID],
+    () => fetchCoinInfo(coinID!)
+  );
+  const { isLoading: tickersLoading, data: tickersData } =
+    useQuery<ITickersData>(
+      ["tickers", coinID],
+      () => fetchCoinTickers(coinID!),
+      {
+        refetchInterval: 5000,
+      }
+    );
+
+  const loading = infoLoading || tickersLoading;
+  const ICON_URL = `https://cryptoicon-api.vercel.app/api/icon/${infoData?.symbol.toLowerCase()}`;
+
+  // react-query 사용 이전
+  /*
+  const [loading, setLoading] = useState(true);
+  const [infoData, setInfoData] = useState<IInfoData>();
+  const [priceData, setPriceData] = useState<IPriceData>();
   useEffect(() => {
     (async () => {
       const infoData = await (
@@ -172,14 +195,18 @@ function Coin() {
       setLoading(false);
     })();
   }, [coinID]);
+  */
 
   return (
     <Container>
+      <Helmet>
+        <title>
+          {state?.name ? state.name : loading ? "loading..." : infoData?.name}
+        </title>
+      </Helmet>
       <Header>
         <Title>
-          <TitleImg
-            src={`https://cryptoicon-api.vercel.app/api/icon/${infoData?.symbol.toLowerCase()}`}
-          />
+          <TitleImg src={ICON_URL} />
           {state?.name ? state.name : loading ? "loading..." : infoData?.name}
         </Title>
       </Header>
@@ -197,32 +224,32 @@ function Coin() {
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+              <span>Price:</span>
+              <span>${tickersData?.quotes.USD.price}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
           <Overview>
             <OverviewItem>
               <span>Total Suply:</span>
-              <span>{priceData?.total_supply}</span>
+              <span>{tickersData?.total_supply}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Max Supply:</span>
-              <span>{priceData?.max_supply}</span>
+              <span>{tickersData?.max_supply}</span>
             </OverviewItem>
           </Overview>
 
           <Tabs>
-            <Tab isActive={priceMatch !== null}>
-              <Link to={"price"}>Price</Link>
-            </Tab>
             <Tab isActive={chartMatch !== null}>
               <Link to={"chart"}>Chart</Link>
             </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={"price"}>Price</Link>
+            </Tab>
           </Tabs>
 
-          <Outlet />
+          <Outlet context={{ coinID }} />
         </>
       )}
     </Container>

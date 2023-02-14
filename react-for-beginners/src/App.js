@@ -3,28 +3,31 @@ import { useEffect, useState } from "react";
 function App() {
   const [loading, setLoading] = useState(true);
   const [coins, setCoins] = useState([]);
+
+  const getCoins = async () => {
+    const res = await fetch("https://api.coinpaprika.com/v1/tickers");
+    const json = await res.json();
+    console.log(json);
+    setCoins(json);
+    setLoading(false);
+  };
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
-      .then((response) => response.json())
-      .then((json) => {
-        setLoading(false);
-        setCoins(json);
-      });
+    getCoins();
   }, []);
 
   return (
     <div>
-      <h1>Coins! {loading ? "" : `${coins.length}`}</h1>
+      <h1>Coins! {loading ? "" : `(${coins.length})`}</h1>
       {loading ? (
         <strong>Loading...</strong>
       ) : (
-        <select>
+        <ul>
           {coins.map((coin) => (
-            <option>
+            <li>
               {coin.name}({coin.symbol}) : ${coin.quotes.USD.price} USD
-            </option>
+            </li>
           ))}
-        </select>
+        </ul>
       )}
     </div>
   );

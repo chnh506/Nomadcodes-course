@@ -3,25 +3,18 @@
 
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  align-content: space-between;
 }
 
 .child {
   width: 200px;
   height: 200px;
+  font-size: 48px;
   background-color: peru;
   color: white;
-}
 
-.child:nth-child(1) {
-  order: 2;
-}
-
-.child:nth-child(2) {
-  /* order: 0(default) */
-  align-self: center;
-}
-
-.child:nth-child(3) {
-  align-self: flex-end;
-  order: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

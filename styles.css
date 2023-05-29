@@ -1,0 +1,14 @@
+.father {
+  height: 100vh;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.children {
+  width: 200px;
+  height: 200px;
+  background-color: peru;
+  color: white;
+}

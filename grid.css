@@ -1,12 +1,14 @@
 .grid {
+  background-color: grey;
+  color: white;
   display: grid;
-  height: 50vh;
+  height: 100vh;
   gap: 5px;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  /* justify-items: center;
-  align-items: end; */
-  place-items: end center;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(4, 100px);
+  justify-content: space-between;
+  align-content: end;
+  place-content: end center;
 }
 
 .header {

@@ -1,0 +1,38 @@
+@import "_variables";
+
+body {
+  background: $bg;
+}
+
+// scss가 없었을 때, 기존의 css 방식
+/*
+.box {
+  margin-top: 20px;
+}
+
+.box:hover {
+  background-color: green;
+}
+
+.box h2 {
+  color: blue;
+}
+
+.box button {
+  color: red;
+}
+*/
+
+// scss의 nesting 특징 덕분에 아래처럼 깔끔해진다!
+.box {
+  margin-top: 20px;
+  &:hover {
+    background-color: green;
+  }
+  h2 {
+    color: blue;
+  }
+  button {
+    color: red;
+  }
+}

@@ -1,38 +1,13 @@
 @import "_variables";
+@import "_mixins";
 
-body {
-  background: $bg;
-}
-
-// scss가 없었을 때, 기존의 css 방식
-/*
-.box {
-  margin-top: 20px;
-}
-
-.box:hover {
-  background-color: green;
-}
-
-.box h2 {
-  color: blue;
-}
-
-.box button {
-  color: red;
-}
-*/
-
-// scss의 nesting 특징 덕분에 아래처럼 깔끔해진다!
-.box {
-  margin-top: 20px;
-  &:hover {
-    background-color: green;
+a {
+  margin-bottom: 10px;
+  &:nth-child(odd) {
+    @include link("odd");
   }
-  h2 {
-    color: blue;
-  }
-  button {
-    color: red;
+
+  &:nth-child(even) {
+    @include link("even");
   }
 }

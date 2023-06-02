@@ -1,6 +1,9 @@
 @import "_variables";
 @import "_mixins";
+@import "_buttons";
 
+// mixins
+/*
 a {
   margin-bottom: 10px;
   &:nth-child(odd) {
@@ -10,4 +13,16 @@ a {
   &:nth-child(even) {
     @include link("even");
   }
+}
+*/
+
+// extends
+a {
+  @extend %button;
+  text-decoration: none;
+}
+
+button {
+  @extend %button;
+  border: none;
 }

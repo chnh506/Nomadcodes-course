@@ -1,1 +1,1 @@
-a{margin-bottom:10px}a:nth-child(even),a:nth-child(odd){text-decoration:none;display:block;color:#00f}a:nth-child(even){color:red}
+a,button{font-family:inherit;font-size:12px;font-weight:600;text-transform:uppercase;background-color:#db7093;color:#fff;padding:5px 10px;border-radius:7px}a{text-decoration:none}button{border:0}

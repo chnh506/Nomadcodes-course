@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styles from "./Detail.module.css";
 
 function Detail() {
   const { id } = useParams();
@@ -22,19 +23,31 @@ function Detail() {
   return (
     <div>
       {loading ? (
-        <h1>Loading...</h1>
+        <h1 className={styles.loader}>Loading...</h1>
       ) : (
-        <div>
-          <img src={movie.background_image} alt={id} />
-          <img src={movie.medium_cover_image} alt={id} />
-          <h1>title: {movie.title_long}</h1>
-          <h4>genres: </h4>
-          <ul>
-            {movie.genres.map((g, idx) => (
-              <li key={idx}>{g}</li>
-            ))}
-          </ul>
-          <h4>rating: {movie.rating}</h4>
+        <div className={styles.container}>
+          <img
+            src={movie.background_image}
+            alt={id}
+            className={styles.bgImage}
+          />
+          <div className={styles.content}>
+            <img
+              src={movie.medium_cover_image}
+              alt={id}
+              className={styles.coverImage}
+            />
+            <div className={styles.detailInfo}>
+              <h1 className={styles.title}>{movie.title_long}</h1>
+              <p className={styles.description}>{movie.description_intro}</p>
+              <ul className={styles.genres}>
+                {movie.genres.map((g, idx) => (
+                  <li key={idx}>{g}</li>
+                ))}
+              </ul>
+              <h4 className={styles.rating}>rating: {movie.rating} / 10</h4>
+            </div>
+          </div>
         </div>
       )}
     </div>

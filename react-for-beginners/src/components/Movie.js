@@ -6,7 +6,7 @@ function Movie({ id, coverImg, title, year, summary, genres }) {
   return (
     <div className={styles.movieBox}>
       <Link to={`/movie/${id}`}>
-        <img src={coverImg} alt={title} />
+        <img src={coverImg} alt={title} loading="lazy" />
         <div className={styles.movie__info}>
           <h2 className={styles.movie__title}>
             {title}({year})

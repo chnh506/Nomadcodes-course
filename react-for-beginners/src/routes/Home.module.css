@@ -1,4 +1,10 @@
-.container {
+@keyframes loaded {
+  from {
+    transform: translateY(10vh);
+  }
+  to {
+    transform: translateY(0vh);
+  }
 }
 
 .loader {
@@ -11,6 +17,9 @@
 
 .movies {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
+  grid-template-columns: repeat(4, max-content);
+  column-gap: 3px;
+  justify-content: center;
+
+  animation: loaded 0.5s ease-in-out;
 }

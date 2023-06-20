@@ -2,6 +2,10 @@
   "include": ["src"], // Typescript가 src의 모든 파일을 확인해서 JS로 컴파일한다.
   "compilerOptions": {
     "outDir": "build", // 컴파일된 JS 파일을 어디에 만들지(저장할 공간 설정)
-    "target": "ES6" // 어떤 버전의 JS로 TS를 컴파일할 것인지를 설정
+    "target": "ES6", // 어떤 버전의 JS로 TS를 컴파일할 것인지를 설정
+    "lib": ["ES6", "DOM"],
+    // ES6를 지원하는 서버 & 브라우저(DOM) 환경에서 코드를 실행시킬 것이라는 설정
+    // DOM을 추가해 주면, TS는 document가 뭔지 알고 있게 된다! -> 자동완성 제공 (ex. document.queryselector())
+    "strict": true
   }
 }

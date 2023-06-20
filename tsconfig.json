@@ -1,0 +1,7 @@
+{
+  "include": ["src"], // Typescript가 src의 모든 파일을 확인해서 JS로 컴파일한다.
+  "compilerOptions": {
+    "outDir": "build", // 컴파일된 JS 파일을 어디에 만들지(저장할 공간 설정)
+    "target": "ES6" // 어떤 버전의 JS로 TS를 컴파일할 것인지를 설정
+  }
+}

@@ -6,6 +6,7 @@
     "lib": ["ES6", "DOM"],
     // ES6를 지원하는 서버 & 브라우저(DOM) 환경에서 코드를 실행시킬 것이라는 설정
     // DOM을 추가해 주면, TS는 document가 뭔지 알고 있게 된다! -> 자동완성 제공 (ex. document.queryselector())
-    "strict": true
+    "strict": true,
+    "allowJs": true // JS 파일들 TS에서 import해서 쓸 수 있는지 (JSDoc을 사용할 때 추가해주는 설정)
   }
 }

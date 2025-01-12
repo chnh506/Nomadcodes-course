@@ -1,0 +1,41 @@
+header {
+  position: fixed;
+  width: 600px;
+  height: 100vh;
+  font-weight: 600;
+  box-sizing: border-box;
+  padding: 100px 150px 70px 70px;
+  background-color: #f0f0f0;
+  color: $main-color;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header__title {
+  font-size: 76px;
+}
+
+.header__summary {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.header__description {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.header__links {
+  margin-bottom: 25px;
+
+  .header__link {
+    color: $grey-color;
+  }
+}
+
+.header__detail {
+  color: $grey-color;
+  font-size: 12px;
+}

@@ -1,0 +1,30 @@
+.father {
+  height: 100vh;
+  margin: 0px 25px;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.child {
+  width: 300px;
+  height: 200px;
+  font-size: 48px;
+  background-color: peru;
+  color: white;
+  margin: 0px 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.child:nth-child(2) {
+  background-color: black;
+  flex-shrink: 2;
+  flex-grow: 2;
+}
+
+.child:nth-child(3) {
+  flex-grow: 1;
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nomadcoders_toonflix/widgets/Button.dart';
 
 void main() {
   runApp(const App());
@@ -21,6 +22,7 @@ class App extends StatelessWidget {
       body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: 80,
@@ -49,7 +51,46 @@ class App extends StatelessWidget {
                     ],
                   )
                 ],
-              )
+              ),
+              SizedBox(
+                height: 120,
+              ),
+              Text(
+                'Total Balance',
+                style: TextStyle(
+                  color: Colors.white.withAlpha(204),
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                '\$5 194 482',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 40,
+                ),
+              ),
+              SizedBox(
+                height: 28,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Button(
+                    text: 'Transfer',
+                    bgColor: Color(0xFFF1B33B),
+                    textColor: Colors.black,
+                  ),
+                  const Button(
+                    text: 'Request',
+                    bgColor: Color(0xFF1F2123),
+                    textColor: Colors.white,
+                  ),
+                ],
+              ),
             ],
           )),
     ));

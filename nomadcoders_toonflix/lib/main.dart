@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nomadcoders_toonflix/widgets/Button.dart';
+import 'package:nomadcoders_toonflix/widgets/currencyCard.dart';
 
 void main() {
   runApp(const App());
@@ -19,169 +20,133 @@ class App extends StatelessWidget {
     return MaterialApp(
         home: Scaffold(
       backgroundColor: Color(0xFF181818),
-      body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 80,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Hey, Selena',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Text(
-                        'Welcome back',
-                        style: TextStyle(
-                          color: Colors.white.withAlpha(204),
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 120,
-              ),
-              Text(
-                'Total Balance',
-                style: TextStyle(
-                  color: Colors.white.withAlpha(204),
-                  fontSize: 16,
+      body: SingleChildScrollView(
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 80,
                 ),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                '\$5 194 482',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 40,
-                ),
-              ),
-              SizedBox(
-                height: 28,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Button(
-                    text: 'Transfer',
-                    bgColor: Color(0xFFF1B33B),
-                    textColor: Colors.black,
-                  ),
-                  const Button(
-                    text: 'Request',
-                    bgColor: Color(0xFF1F2123),
-                    textColor: Colors.white,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'Wallets',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'View All',
-                    style: TextStyle(
-                      color: Colors.white.withAlpha(204),
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                    color: Color(0xFF1F2123),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Euro',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '6 428',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                'EUR',
-                                style: TextStyle(
-                                  color: Colors.white.withAlpha(204),
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Transform.scale(
-                        scale: 2.5,
-                        child: Transform.translate(
-                          offset: Offset(4, 16),
-                          child: Icon(
-                            Icons.euro_rounded,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Hey, Selena',
+                          style: TextStyle(
                             color: Colors.white,
-                            size: 88,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
-                      ),
-                    ],
+                        Text(
+                          'Welcome back',
+                          style: TextStyle(
+                            color: Colors.white.withAlpha(204),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 80,
+                ),
+                Text(
+                  'Total Balance',
+                  style: TextStyle(
+                    color: Colors.white.withAlpha(204),
+                    fontSize: 16,
                   ),
                 ),
-              ),
-            ],
-          )),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  '\$5 194 482',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 40,
+                  ),
+                ),
+                SizedBox(
+                  height: 28,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Button(
+                      text: 'Transfer',
+                      bgColor: Color(0xFFF1B33B),
+                      textColor: Colors.black,
+                    ),
+                    const Button(
+                      text: 'Request',
+                      bgColor: Color(0xFF1F2123),
+                      textColor: Colors.white,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Wallets',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      'View All',
+                      style: TextStyle(
+                        color: Colors.white.withAlpha(204),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Currencycard(
+                  name: 'Euro',
+                  code: 'EUR',
+                  amount: '6 428',
+                  icon: Icons.euro_rounded,
+                  isInverted: false,
+                  order: 0,
+                ),
+                Currencycard(
+                  name: 'Bitcoin',
+                  code: 'BTC',
+                  amount: '9 785',
+                  icon: Icons.currency_bitcoin_rounded,
+                  isInverted: true,
+                  order: 1,
+                ),
+                Currencycard(
+                  name: 'Dollar',
+                  code: 'USD',
+                  amount: '110 000',
+                  icon: Icons.attach_money_rounded,
+                  isInverted: false,
+                  order: 2,
+                ),
+              ],
+            )),
+      ),
     ));
   }
 }

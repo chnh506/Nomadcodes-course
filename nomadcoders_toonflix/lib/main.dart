@@ -15,22 +15,43 @@ class App extends StatelessWidget {
 
   @override // Dart annotation. 부모 클래스에 있는 것을 override한다.
   Widget build(BuildContext context) {
-    // Widget을 return한다. Flutter의 모든 것은 Widget!
-    // root App은 MaterialApp vs. CupertinoApp 둘 중 하나를 return해야 한다.
-    // 보통 default로 MaterialApp을 선택 -> 여기서 Google 느낌을 빼는 것은 그리 오래 걸리지 않는다.
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Hello Flutter',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.red,
-        ),
-        body: Center(
-          child: Text('Hello world!'),
-        ),
-      ),
-    );
+        home: Scaffold(
+      backgroundColor: Color(0xFF181818),
+      body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 80,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Hey, Selena',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      Text(
+                        'Welcome back',
+                        style: TextStyle(
+                          color: Colors.white.withAlpha(204),
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              )
+            ],
+          )),
+    ));
   }
 }

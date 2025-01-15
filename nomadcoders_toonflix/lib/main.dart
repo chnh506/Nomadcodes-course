@@ -21,8 +21,11 @@ class _AppState extends State<App> {
   int counter = 0;
 
   // IconButton 위젯의 onPressed 프로퍼티에 등록할 함수(메서드)
+  // #4.1 - setState: 직전 강의에서 놓쳤던 마지막 한 퍼즐.
   void onClicked() {
-    counter = counter + 1;
+    setState(() {
+      counter = counter + 1;
+    });
   }
 
   @override

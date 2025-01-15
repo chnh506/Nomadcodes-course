@@ -13,52 +13,67 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-// 두 번째 부분: 여기 있는 State
-// State는 우리가 UI를 구축하는 곳이고, 이 상태는 매우 특별하다.
-// 우리가 데이터를 바꿀 때, UI는 새로고침되면서 최신 데이터를 보여준다.
-// 데이터는 단순히 Dart의 클래스 프로퍼티일 뿐이다.
 class _AppState extends State<App> {
-  int counter = 0;
-
-  // IconButton 위젯의 onPressed 프로퍼티에 등록할 함수(메서드)
-  // #4.1 - setState: 직전 강의에서 놓쳤던 마지막 한 퍼즐.
-  void onClicked() {
-    setState(() {
-      counter = counter + 1;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: TextTheme(
+          titleLarge: TextStyle(
+            color: Colors.red,
+          ),
+        ),
+      ),
       home: Scaffold(
         backgroundColor: const Color(0xFFF4EDDB),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Click Count',
-                style: TextStyle(
-                  fontSize: 30,
-                ),
-              ),
-              Text(
-                '$counter',
-                style: TextStyle(
-                  fontSize: 30,
-                ),
-              ),
-              IconButton(
-                iconSize: 40,
-                onPressed: onClicked,
-                icon: const Icon(
-                  Icons.add_box_rounded,
-                ),
-              ),
+              MyLargeTitle(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MyLargeTitle extends StatefulWidget {
+  const MyLargeTitle({
+    super.key,
+  });
+
+  @override
+  State<MyLargeTitle> createState() => _MyLargeTitleState();
+}
+
+class _MyLargeTitleState extends State<MyLargeTitle> {
+  @override
+  void initState() {
+    // state를 초기화하기 위한 메서드
+    // 기존에 했던 방법에서 봤듯이, 이 메서드를 꼭 사용해야 하는 것은 아니다.
+    // 다만, 종종 부모 요소에 의존하는 데이터를 초기화해야 하는 경우가 있다.
+    // 중요한 점은 항상 initState 메서드가 build 메서드보다 먼저 호출되어야 한다.
+    super.initState();
+    print('initState!');
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    print('dispose!');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('build!');
+    return Text(
+      'My Large Title',
+      style: TextStyle(
+        fontSize: 30,
+        color: Theme.of(context).textTheme.titleLarge?.color,
       ),
     );
   }

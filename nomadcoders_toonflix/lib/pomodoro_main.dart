@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nomadcoders_toonflix/screens/home_screen.dart';
+import 'package:nomadcoders_toonflix/screens/home_screen_pomodoro.dart';
 
 void main() {
   runApp(App());

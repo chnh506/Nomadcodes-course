@@ -3,6 +3,7 @@ import 'package:nomadcoders_toonflix/models/webtoon_detail_model.dart';
 import 'package:nomadcoders_toonflix/models/webtoon_episode_model.dart';
 import 'package:nomadcoders_toonflix/services/api_service.dart';
 import 'package:nomadcoders_toonflix/widgets/episode_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailScreen extends StatefulWidget {
   final String id, thumb, title;
@@ -21,6 +22,26 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   late Future<WebtoonDetailModel> webtoonDetail; // 나중에 정의할 것이라 선언해 둔다.
   late Future<List<WebtoonEpisodeModel>> episodes;
+  late SharedPreferences prefs;
+  bool isLiked = false;
+
+  Future initPrefs() async {
+    // 유저의 저장소에 connection을 만든다.
+    prefs = await SharedPreferences.getInstance();
+    final likedToons = prefs
+        .getStringList('likedToons'); // return값은 List<String> 일 수도 있고 아닐 수도 있다.
+    if (likedToons != null) {
+      // likedToons 리스트가 존재할 때.
+      // 지금 사용자가 보고 있는 웹툰의 id가 likedToons 리스트에 있는지 확인한다.
+      if (likedToons.contains(widget.id) == true) {
+        isLiked = true;
+        setState(() {});
+      }
+    } else {
+      // 앱을 맨 처음에 열었을 때. likedToons 리스트를 생성한다.
+      await prefs.setStringList('likedToons', []);
+    }
+  }
 
   @override
   void initState() {
@@ -30,6 +51,23 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
     webtoonDetail = ApiService.getToonById(widget.id);
     episodes = ApiService.getLatestEpisodesById(widget.id);
+    initPrefs();
+  }
+
+  onHeartTap() async {
+    final likedToons = prefs.getStringList('likedToons');
+    if (likedToons != null) {
+      if (isLiked == true) {
+        likedToons.remove(widget.id);
+      } else {
+        likedToons.add(widget.id);
+      }
+
+      await prefs.setStringList('likedToons', likedToons);
+      setState(() {
+        isLiked = !isLiked;
+      });
+    }
   }
 
   @override
@@ -48,6 +86,16 @@ class _DetailScreenState extends State<DetailScreen> {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         shadowColor: Colors.black,
+        actions: [
+          IconButton(
+            onPressed: onHeartTap,
+            icon: Icon(
+              isLiked == true
+                  ? Icons.favorite
+                  : Icons.favorite_outline_outlined,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(

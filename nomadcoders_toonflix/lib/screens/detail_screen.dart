@@ -48,38 +48,131 @@ class _DetailScreenState extends State<DetailScreen> {
         surfaceTintColor: Colors.white,
         shadowColor: Colors.black,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Hero(
-                tag: widget.id,
-                child: Container(
-                  width: 250,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 15,
-                        offset: Offset(10, 10),
-                        color: Colors.black.withAlpha(75),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 40,
+          vertical: 50,
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: widget.id,
+                  child: Container(
+                    width: 250,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 15,
+                          offset: Offset(10, 10),
+                          color: Colors.black.withAlpha(75),
+                        ),
+                      ],
+                    ),
+                    child: Image.network(
+                      widget.thumb,
+                      headers: const {
+                        'Referer': 'https://comic.naver.com',
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            FutureBuilder(
+              future: webtoonDetail,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snapshot.data!.about,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        '${snapshot.data!.genre} / ${snapshot.data!.age}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
-                  ),
-                  child: Image.network(widget.thumb, headers: const {
-                    "User-Agent":
-                        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-                  }),
-                ),
-              ),
-            ],
-          ),
-        ],
+                  );
+                }
+                return Text("Loading...");
+              },
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            FutureBuilder(
+              future: episodes,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          for (var episode in snapshot.data!.length > 10
+                              ? snapshot.data!.sublist(0, 10)
+                              : snapshot.data!)
+                            Container(
+                              margin: EdgeInsets.only(bottom: 8),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.green.shade400,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 20,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      fit: FlexFit.loose,
+                                      child: Text(
+                                        episode.title,
+                                        softWrap: false,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.chevron_right_rounded,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return Container();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

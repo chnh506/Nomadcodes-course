@@ -1,3 +1,6 @@
 [submodule "hi-nest"]
 	path = hi-nest
 	url = https://github.com/hchannni/nc_hi_nest.git
+[submodule "flutter_tiktok_clone"]
+	path = flutter_tiktok_clone
+	url = /flutter_tiktok_clone.git
